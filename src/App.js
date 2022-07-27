@@ -49,6 +49,19 @@ const checkIfWalletIsConnected = async () => {
     }
   };
 
+  const onInputChange = (event) => {
+    const { value } = event.target;
+    setInputValue(value);
+  };
+
+  const sendGif = async () => {
+    if (inputValue.length > 0) {
+      console.log("Gif link:", inputValue);
+    } else {
+      console.log("Empty input. Try again.");
+    }
+  };
+
    const renderNotConnectedContainer = () => (
      <button
        className="cta-button connect-wallet-button"
@@ -63,9 +76,15 @@ const renderConnectedContainer = () => (
     <form
       onSubmit={(event) => {
         event.preventDefault();
+        sendGif();
       }}
     >
-      <input type="text" placeholder="Enter gif link!" />
+      <input
+        type="text"
+        placeholder="Enter gif link!"
+        value={inputValue}
+        onChange={onInputChange}
+      />
       <button type="submit" className="cta-button submit-gif-button">
         Submit
       </button>

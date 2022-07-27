@@ -6,21 +6,26 @@ const TWITTER_HANDLE = "aviral10x";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 const App = () => {
-  const checkIfWalletIsConnected = async () => {
-    try {
-      const { solana } = window;
+const checkIfWalletIsConnected = async () => {
+  try {
+    const { solana } = window;
 
-      if (solana) {
-        if (solana.isPhantom) {
-          console.log("Phantom wallet found!");
-        }
-      } else {
-        alert("Solana object not found! Get a Phantom Wallet 👻");
+    if (solana) {
+      if (solana.isPhantom) {
+        console.log("Phantom wallet found!");
+        const response = await solana.connect({ onlyIfTrusted: true });
+        console.log(
+          "Connected with Public Key:",
+          response.publicKey.toString()
+        );
       }
-    } catch (error) {
-      console.error(error);
+    } else {
+      alert("Solana object not found! Get a Phantom Wallet 👻");
     }
-  };
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   useEffect(() => {
     const onLoad = async () => {
